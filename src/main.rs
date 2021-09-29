@@ -125,6 +125,9 @@ fn main_compile(parameters: CompileParameters) -> Result<(), String> {
         for library in &parameters.libraries {
             linker.add_lib(library);
         }
+		if !parameters.sysroot.is_none(){
+			linker.add_sysroot(&parameters.sysroot.unwrap());
+		}
 
         if out_format == FormatOption::Static {
             linker.build_exectuable(Path::new(&output_filename))?;
